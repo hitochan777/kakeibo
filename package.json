@@ -1,0 +1,15 @@
+{
+  "name": "mf-voice",
+  "version": "1.0.0",
+  "description": "Voice operation tool for moneyforward",
+  "main": "index.js",
+  "repository": "https://github.com/hitochan777/mf-voice",
+  "author": "Hitoshi Otsuki",
+  "license": "MIT",
+  "dependencies": {
+    "@types/puppeteer": "^1.10.1",
+    "puppeteer": "^1.10.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  }
+}

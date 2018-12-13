@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+service Kakeibo {
+  rpc AddItem(ItemInput) returns (Response) {}
+}
+
+message ItemInput {
+  google.protobuf.Timestamp payedAt  = 1;
+  Category category = 2;
+  int32 price = 3;
+  string memo = 4;
+}
+
+message Category {
+  string big = 1;
+  string small = 2;
+}
+
+message Response {
+  bool ok = 1;
+}
