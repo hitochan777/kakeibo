@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.button {
+  color: #61dafb;
+  border: 4px solid white;
+  background-color: transparent;
+  font-size: calc(10px + 2vmin);
+  padding: 10px;
+}
+
+.button:hover {
+  background-color: grey;
+}
