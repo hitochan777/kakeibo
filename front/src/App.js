@@ -27,7 +27,7 @@ class App extends Component {
         await postRawText(result.transcript);
       },
       error => {
-        console.log('error', error);
+        console.log(error);
         this.setState({recording: false});
       },
       x => {
