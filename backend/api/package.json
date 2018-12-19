@@ -1,0 +1,17 @@
+{
+  "name": "mf-voice",
+  "version": "1.0.0",
+  "description": "Voice operation tool for moneyforward",
+  "main": "index.js",
+  "repository": "https://github.com/hitochan777/mf-voice",
+  "author": "Hitoshi Otsuki",
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "grpc": "^1.17.0",
+    "puppeteer": "^1.10.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.3"
+  }
+}
