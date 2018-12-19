@@ -16,37 +16,25 @@ import (
 
 func convert(text string) (*service.Item, error) {
 	// Do some conversion
-	re := regexp.MustCompile(`(\d+)月(\d+)日に(\d+)円で([\p{Hiragana}|\p{Katakana}|\p{Han}]+)の([\p{Hiragana}|\p{Katakana}|\p{Han}]+)に追加`)
+	re := regexp.MustCompile(`([\p{Hiragana}|\p{Katakana}|\p{Han}]+)の([\p{Hiragana}|\p{Katakana}|\p{Han}]+)が(\d+)円`)
 	match := re.FindStringSubmatch(text)
 	if match == nil {
 		return nil, fmt.Errorf("Failed to parse raw text")
 	}
-	month, err := strconv.Atoi(match[1])
-	if err != nil {
-		return nil, err
-	}
-	date, err := strconv.Atoi(match[2])
-	if err != nil {
-		return nil, err
+	category := &service.Category{
+		Big:   match[1],
+		Small: match[2],
 	}
 	price, err := strconv.Atoi(match[3])
 	if err != nil {
 		return nil, err
 	}
-	payedAt := &service.PayedAt{
-		Month: int32(month),
-		Date:  int32(date),
-	}
-	category := &service.Category{
-		Big:   match[4],
-		Small: match[5],
-	}
-	return &service.Item{PayedAt: payedAt, Category: category, Price: int32(price)}, nil
+	return &service.Item{Category: category, Price: int32(price)}, nil
 }
 
 func main() {
 	// gRPC client setup
-	conn, err := grpc.Dial("localhost:11111", grpc.WithInsecure()) // TODO: change to proper port when ready
+	conn, err := grpc.Dial("localhost:11111", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -65,7 +53,9 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		item, err := convert(string(body))
+		rawText := string(body)
+		log.Println("Received: ", rawText)
+		item, err := convert(rawText)
 		log.Println(item)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
